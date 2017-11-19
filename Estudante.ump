@@ -1,0 +1,17 @@
+class Estudante {
+  nome;
+  matricula;
+  
+  Double p1;
+  Double p2;
+  Double[] trabalhos;
+  Double[] exercicios;
+  Double g2;
+  Integer faltas;
+  
+  //O critério que determina que dois objetos Student são iguais é a chave matricula
+  key { matricula }
+  
+  Double mediaG1(){}
+  GrauFinal resultado(){}
+}
