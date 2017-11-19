@@ -1,0 +1,53 @@
+context Estudante inv: 0 <= p1 and p1 <= 10
+
+context Estudante inv: 0 <= p2 and p2 <= 10
+
+context Estudante inv: trabalhos -> forAll(t | 0 <= t and t <= 10)
+
+context Estudante inv: exercicios -> forAll(e | 0 <= e and e <= 10)
+
+context Estudante inv: 0 <= faltas and faltas <= 60
+
+context Estudante
+    inv: let length = nome->size() in
+         5 <= nome and nome <= 36
+	
+context Estudante
+    inv: let length = matricula->size() within
+         length = 8
+
+context Estudante::p1 init: 0
+
+context Estudante::p2 init: 0
+
+context Estudante::trabalhos init: trabalhos->isEmpty() = true
+
+context Estudante::exercicios init: exercicios->isEmpty() = true
+
+
+context Estudante::mediaG1():Real
+	post:
+	let
+		media(seq : Sequence):Real
+		body: if seq->isEmpty()
+			  then 0
+			  else seq->sum() / seq->size()
+			  endif
+	in
+		result = (p1 + p2 + media(trabalhos) + media(exercicios)) / r4
+
+context Estudante::resultado():GrauFinal
+    pre: if faltas > 15
+    post: REP
+    
+    pre: g1 >= 7.0
+    post: APR
+    
+    pre: g1 < 4.0
+    post: REP
+    
+    pre: (g1 + g2)/2 >= 5.0
+    post: APR
+    
+    pre: (g1 + g2)/2 < 5.0
+	post: REP
